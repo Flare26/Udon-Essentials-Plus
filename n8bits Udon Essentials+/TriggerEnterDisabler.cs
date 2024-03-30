@@ -6,7 +6,9 @@ using VRC.Udon;
 //n8bits
 public class TriggerEnterDisabler : UdonSharpBehaviour
 {
-    [SerializeField] GameObject[] toDisable; 
+    [Header("Trigger Enter Disabler by n8")]
+    [Header("v1.0.0")]
+    [SerializeField] GameObject[] toDisable;
     void Start()
     {
         
@@ -14,12 +16,14 @@ public class TriggerEnterDisabler : UdonSharpBehaviour
 
     public override void OnPlayerTriggerEnter(VRCPlayerApi player)
     {
-        if (player != Networking.LocalPlayer)
-            return;
-
-        foreach(GameObject o in toDisable)
+        if (Networking.LocalPlayer.Equals(player))
         {
-            o.SetActive(false);
+            foreach(GameObject o in toDisable)
+            {
+                o.SetActive(false);
+            }
+
         }
+
     }
 }

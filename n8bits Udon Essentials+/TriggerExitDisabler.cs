@@ -10,10 +10,11 @@ namespace UEPlus
     public class TriggerExitDisabler : UdonSharpBehaviour
     {
         [Header("Trigger Exit Disabler by n8")]
+        [Header("v1.0.0")]
         [SerializeField] GameObject[] disables; 
         public override void OnPlayerTriggerExit(VRCPlayerApi api)
         {
-            if (api.displayName.Equals(Networking.LocalPlayer.displayName))
+            if (Networking.LocalPlayer.Equals(api))
             {
                 foreach ( GameObject o in disables)
                 {

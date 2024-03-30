@@ -10,10 +10,11 @@ namespace UEPlus
     public class TriggerEnterEnabler : UdonSharpBehaviour
     {
         [Header("Trigger Enter Enabler by n8")]
+        [Header("v1.0.0")]
         [SerializeField] GameObject[] enables; 
         public override void OnPlayerTriggerEnter(VRCPlayerApi api)
         {
-            if (api.displayName.Equals(Networking.LocalPlayer.displayName))
+            if (Networking.LocalPlayer.Equals(api))
             {
                 foreach ( GameObject o in enables)
                 {
