@@ -12,9 +12,12 @@ namespace UEPlus
         [Header("Toggle+ by n8")]
 
         [SerializeField] bool isSynced;
+        [SerializeField] bool isAnimated;
         [SerializeField, UdonSynced] bool state;
         [SerializeField] GameObject[] togObjs;
         [SerializeField] Collider[] togColliders;
+        
+        [Header("Optional"), SerializeField] Animator optionalAnim;
         void Start()
         {
             SetState();
@@ -37,6 +40,17 @@ namespace UEPlus
                 RequestSerialization();
         }
 
+        void SetAnimatorState()
+        {
+            if (optionalAnim)
+            {
+                if (state)
+                    optionalAnim.Play("ToggleOn");
+                else
+                    optionalAnim.Play("ToggleOff");
+            }
+        }
+
         void SetState()
         {
             if (togObjs.Length > 0)
@@ -45,6 +59,7 @@ namespace UEPlus
                 {
                     o.SetActive(state);
                 }
+
             }
 
             if (togColliders.Length > 0)
@@ -55,6 +70,8 @@ namespace UEPlus
                 }
             }
 
+            if (isAnimated)
+                SetAnimatorState();
             //Debug.Log("Set state to " + state);
         }
 
