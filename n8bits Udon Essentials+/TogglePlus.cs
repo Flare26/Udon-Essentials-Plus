@@ -9,15 +9,17 @@ namespace UEPlus
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class TogglePlus : UdonSharpBehaviour
     {
-        [Header("Toggle+ by n8")]
+        [Header("Toggle+ by n8 v1.0.1")]
 
         [SerializeField] bool isSynced;
         [SerializeField] bool isAnimated;
-        [SerializeField, UdonSynced] bool state;
+        [SerializeField, UdonSynced] public bool state;
         [SerializeField] GameObject[] togObjs;
         [SerializeField] Collider[] togColliders;
         
         [Header("Optional"), SerializeField] Animator optionalAnim;
+        [SerializeField] string onStateName;
+        [SerializeField] string offStateName;
         void Start()
         {
             SetState();
@@ -25,14 +27,19 @@ namespace UEPlus
 
         public override void Interact()
         {
+            ToggleProcedure();
+        }
+
+        public void ToggleProcedure()
+        {
             // On interact, check if this toggle is supposed to be global or not and set ownership if so.
             // After setting ownership, request serializaiton if supposed to be synced
 
             if (!Networking.IsOwner(Networking.LocalPlayer, gameObject) && isSynced)
                 Networking.SetOwner(Networking.LocalPlayer, gameObject);
 
+            Debug.Log("ToggleProcedure invoked, changed state bool");
             state = !state;
-            //Debug.Log("Changed state bool");
 
             SetState();
 
@@ -45,9 +52,9 @@ namespace UEPlus
             if (optionalAnim)
             {
                 if (state)
-                    optionalAnim.Play("ToggleOn");
+                    optionalAnim.Play($"{onStateName}");
                 else
-                    optionalAnim.Play("ToggleOff");
+                    optionalAnim.Play($"{offStateName}");
             }
         }
 

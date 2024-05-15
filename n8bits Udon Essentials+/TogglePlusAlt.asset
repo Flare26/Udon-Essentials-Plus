@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: TogglePlusAlt
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 7ebb1b0e6edfe634e9d9e6021ba2bcd0,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 8b5b4c0a652a69641a7b5fac3a188610,
     type: 2}
   udonAssembly: 
   assemblyError: 
@@ -92,7 +92,7 @@ MonoBehaviour:
       Data: 5|UnityEngine.HeaderAttribute, UnityEngine.CoreModule
     - Name: header
       Entry: 1
-      Data: Toggle+ Alt by n8
+      Data: Toggle+ Alt by n8 v1.0.0
     - Name: 
       Entry: 8
       Data: 
