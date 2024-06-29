@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using VRC.SDKBase;
 using VRC.Udon;
 
+[UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
 // N8bits desktop camera controller for changing cam angles and recording.
 public class CameraControls : UdonSharpBehaviour
 {
@@ -16,7 +17,7 @@ public class CameraControls : UdonSharpBehaviour
     [SerializeField] TextMeshProUGUI FOVtext;
     float defaultFOV;
     float[] pointFOVs;
-    int point;
+    int triIdx;
     [SerializeField] GameObject camIndicator; // sync by set ownership and vrc object sync script
 
     bool isEnabled;
@@ -38,9 +39,18 @@ public class CameraControls : UdonSharpBehaviour
 
     public void SetFOV()
     {
-        pointFOVs[point] = FOVSlider.value;
-        podCam.fieldOfView = pointFOVs[point];
-        FOVtext.text = pointFOVs[point].ToString();
+        pointFOVs[triIdx] = FOVSlider.value;
+        podCam.fieldOfView = pointFOVs[triIdx];
+        FOVtext.text = pointFOVs[triIdx].ToString();
+    }
+
+    public void SetFOV(float newFov)
+    {
+        pointFOVs[triIdx] = newFov;
+        podCam.fieldOfView = pointFOVs[triIdx];
+        FOVtext.text = pointFOVs[triIdx].ToString();
+        FOVSlider.value = newFov;
+        Debug.Log($"Updated point FOV for {triIdx} with {newFov}");
     }
 
     public void ResetFOV()
@@ -59,21 +69,26 @@ public class CameraControls : UdonSharpBehaviour
         podCam.fieldOfView = defaultFOV;
     }
 
+
+
     void EnablePodCam()
     {
-        podCam.depth = 1;
+        podCam.depth = 100;
     }
 
     void DisablePodCam()
     {
-        podCam.depth = -1;
+        podCam.depth = -100;
         camIndicator.transform.position = new Vector3(1000, 1000, 1000);
     }
 
     public void SwitchCamPosition(int idx)
     {
-        podCam.transform.position = camPoints[idx].transform.position;
-        podCam.transform.rotation = camPoints[idx].transform.rotation;
+        triIdx = idx;
+
+        Debug.Log("PodCam: Swapping camera position to idx " + triIdx);
+        podCam.transform.position = camPoints[triIdx].transform.position;
+        podCam.transform.rotation = camPoints[triIdx].transform.rotation;
 
         if (!Networking.LocalPlayer.Equals(Networking.GetOwner(camIndicator)))
             Networking.SetOwner(Networking.LocalPlayer, camIndicator);
@@ -82,16 +97,16 @@ public class CameraControls : UdonSharpBehaviour
         if (!Networking.GetOwner(camIndicator).Equals(Networking.LocalPlayer))
             Networking.SetOwner(Networking.LocalPlayer, camIndicator);
 
-        camIndicator.transform.position = camPoints[idx].transform.position;
-        camIndicator.transform.rotation = camPoints[idx].transform.rotation;
+        camIndicator.transform.position = camPoints[triIdx].transform.position;
+        camIndicator.transform.rotation = camPoints[triIdx].transform.rotation;
 
 
         // Update point based FOV
 
-        podCam.fieldOfView = pointFOVs[idx];
-        FOVSlider.value = pointFOVs[idx];
-        FOVtext.text = pointFOVs[idx].ToString();
-
+        podCam.fieldOfView = pointFOVs[triIdx];
+        FOVSlider.value = pointFOVs[triIdx];
+        FOVtext.text = pointFOVs[triIdx].ToString();
+        Debug.Log($"PodCam: Updated cam fov with value from pointFOVs[{triIdx}] which is {pointFOVs[triIdx]}");
     }
 
     public void ToggleSystem()
@@ -105,7 +120,7 @@ public class CameraControls : UdonSharpBehaviour
         {
             Debug.Log("==SYSTEM ENABLING==");
             podCam.depth = 100f;
-            SwitchCamPosition(point);
+            SwitchCamPosition(triIdx);
         } else
 
         {
@@ -116,19 +131,19 @@ public class CameraControls : UdonSharpBehaviour
 
     public void TestUpCam()
     {
-        if (point + 1 <= camPoints.Length-1)
+        if (triIdx + 1 <= camPoints.Length-1)
         {
-            point++;
-            SwitchCamPosition(point);
+            triIdx++;
+            SwitchCamPosition(triIdx);
         }
     }
 
     public void TestDownCam()
     {
-        if (point - 1 >= 0)
+        if (triIdx - 1 >= 0)
         {
-            point--;
-            SwitchCamPosition(point);
+            triIdx--;
+            SwitchCamPosition(triIdx);
         }
     }
 
@@ -149,13 +164,64 @@ public class CameraControls : UdonSharpBehaviour
             {
                 SwitchCamPosition(0); // label the physical cam markers 1-9, where marker 1 is idx 0.
             }
+        }
 
-            // keep adding more for each number on keyboard
-
+        if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            Debug.Log("Alpha2");
             if (camPoints[1] != null)
             {
                 SwitchCamPosition(1); // label the physical cam markers 1-9, where marker 1 is idx 0.
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            Debug.Log("Alpha3");
+            if (camPoints[2] != null)
+            {
+                SwitchCamPosition(2); // label the physical cam markers 1-9, where marker 1 is idx 0.
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            Debug.Log("Alpha4");
+            if (camPoints[2] != null)
+            {
+                SwitchCamPosition(3); // label the physical cam markers 1-9, where marker 1 is idx 0.
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Equals) || Input.GetKeyDown(KeyCode.KeypadEquals))
+        {
+            float oldFov = podCam.fieldOfView;
+            float newFov = oldFov; // unmodified yet
+
+            if (oldFov + 5 <= 120)
+            {
+                newFov = oldFov + 5;
+            }
+
+            SetFOV(newFov);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            float oldFov = podCam.fieldOfView;
+            float newFov = oldFov; // unmodified yet
+
+            if (oldFov - 5 >= 20)
+            {
+                newFov = oldFov - 5;
+            }
+            SetFOV(newFov);
+        }
+
+        if ((podCam.transform.position != camPoints[triIdx].transform.position) && isEnabled)
+        {
+            podCam.transform.position = camPoints[triIdx].transform.position; // lock the camera to the currently active point
+            podCam.transform.rotation = camPoints[triIdx].transform.rotation;
         }
     }
 }
