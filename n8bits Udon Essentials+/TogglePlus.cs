@@ -74,10 +74,10 @@ namespace UEPlus
             switch (state)
             {
                 case true:
-                    buttonImg.color = onColor;
+                    swapMR.material = onMat;
                     break;
                 case false:
-                    buttonImg.color = offColor;
+                    swapMR.material = offMat;
                     break;
             }
         }
