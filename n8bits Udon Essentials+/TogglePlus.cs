@@ -1,6 +1,7 @@
 ﻿// Toggle Plus by N8bits
 using UdonSharp;
 using UnityEngine;
+using UnityEngine.UI;
 using VRC.SDKBase;
 using VRC.Udon;
 
@@ -9,25 +10,43 @@ namespace UEPlus
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class TogglePlus : UdonSharpBehaviour
     {
-        [Header("Toggle+ by n8 v1.0.1")]
+        [Header("||Toggle+ by n8 v1.0.3||")]
 
         [SerializeField] bool isSynced;
-        [SerializeField] bool isAnimated;
         [SerializeField, UdonSynced] public bool state;
         [SerializeField] GameObject[] togObjs;
         [SerializeField] Collider[] togColliders;
         
-        [Header("Optional"), SerializeField] Animator optionalAnim;
+        [Header("--Optional Animation--")]
+        [SerializeField, 
+            Tooltip("If using an animator, it is recommended to put your toggle actions into the animations instead of using the object arrays.")]
+            bool isAnimated;
+        [SerializeField] Animator optionalAnim;
         [SerializeField] string onStateName;
         [SerializeField] string offStateName;
+
+        [Header("--Optional UI Button--")]
+        [SerializeField] bool useUiImage;
+        [SerializeField] Image buttonImg;
+        [SerializeField] Color onColor;
+        [SerializeField] Color offColor;
+
+        [Header("--Optional Mat Swaps--")]
+        [SerializeField] bool useMatSwap;
+        [SerializeField] GameObject matSwapGameObj;
+        MeshRenderer swapMR;    
+        [SerializeField] Material onMat;
+        [SerializeField] Material offMat;
         void Start()
         {
-            SetState();
+            swapMR = matSwapGameObj.GetComponent<MeshRenderer>();
+            ApplyState();
         }
 
         public override void Interact()
         {
             ToggleProcedure();
+            
         }
 
         public void ToggleProcedure()
@@ -41,12 +60,37 @@ namespace UEPlus
             Debug.Log("ToggleProcedure invoked, changed state bool");
             state = !state;
 
-            SetState();
+            ApplyState();
+            
 
             if (isSynced)
                 RequestSerialization();
         }
 
+        void SetMatSwaps()
+        {
+            switch (state)
+            {
+                case true:
+                    buttonImg.color = onColor;
+                    break;
+                case false:
+                    buttonImg.color = offColor;
+                    break;
+            }
+        }
+        void CheckUpdateButtonColor()
+        {
+            switch (state)
+            {
+                case true:
+                    buttonImg.color = onColor;
+                    break;
+                case false:
+                    buttonImg.color = offColor;
+                    break;
+            }
+        }
         void SetAnimatorState()
         {
             if (optionalAnim)
@@ -58,7 +102,7 @@ namespace UEPlus
             }
         }
 
-        void SetState()
+        void ApplyState()
         {
             if (togObjs.Length > 0)
             {
@@ -77,8 +121,15 @@ namespace UEPlus
                 }
             }
 
-            if (isAnimated)
+            if (isAnimated && optionalAnim)
                 SetAnimatorState();
+
+            if (buttonImg && useUiImage)
+                CheckUpdateButtonColor();
+
+            if (swapMR && useMatSwap)
+                SetMatSwaps();
+
             //Debug.Log("Set state to " + state);
         }
 
@@ -93,7 +144,7 @@ namespace UEPlus
             if (isSynced == false)
                 return;
 
-            SetState();
+            ApplyState();
             //Debug.Log("Set state from deserialize");
         }
     }
