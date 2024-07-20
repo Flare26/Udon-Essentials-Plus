@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using VRC.SDKBase;
 using VRC.Udon;
-
 namespace UEPlus
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
@@ -32,14 +31,17 @@ namespace UEPlus
         [SerializeField] Color offColor;
 
         [Header("--Optional Mat Swaps--")]
-        [SerializeField] bool useMatSwap;
+        [SerializeField, Tooltip("Do not check unless you have matSwapGameObj assigned. It WILL crash the script.")] 
+        bool useMatSwap;
         [SerializeField] GameObject matSwapGameObj;
         MeshRenderer swapMR;    
         [SerializeField] Material onMat;
         [SerializeField] Material offMat;
         void Start()
         {
-            swapMR = matSwapGameObj.GetComponent<MeshRenderer>();
+            if (useMatSwap)
+                swapMR = matSwapGameObj.GetComponent<MeshRenderer>();
+
             ApplyState();
         }
 
