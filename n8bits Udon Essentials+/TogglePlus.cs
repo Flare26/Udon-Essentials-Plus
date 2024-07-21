@@ -1,4 +1,5 @@
 ﻿// Toggle Plus by N8bits
+using System;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,13 +10,14 @@ namespace UEPlus
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class TogglePlus : UdonSharpBehaviour
     {
-        [Header("||Toggle+ by n8 v1.0.3||")]
+        [Header("||Toggle+ by n8 v1.0.4||")]
 
         [SerializeField] bool isSynced;
         [SerializeField, UdonSynced] public bool state;
         [SerializeField] GameObject[] togObjs;
-        [SerializeField] Collider[] togColliders;
-        
+        [SerializeField] GameObject[] colliderContainers;
+        Collider[] colChildren;
+
         [Header("--Optional Animation--")]
         [SerializeField, 
             Tooltip("If using an animator, it is recommended to put your toggle actions into the animations instead of using the object arrays.")]
@@ -41,6 +43,30 @@ namespace UEPlus
         {
             if (useMatSwap)
                 swapMR = matSwapGameObj.GetComponent<MeshRenderer>();
+
+            // new grab colliders logic    
+
+            // Initialize the colChildren array to be empty
+            colChildren = new Collider[] { };
+
+            // Iterate over each collider in togColliders
+            for (int i = 0; i < colliderContainers.Length; i++)
+            {
+                // Get all colliders in the children of the current togCollider (including itself)
+                Collider[] newComponents = colliderContainers[i].GetComponentsInChildren<Collider>();
+
+                // Create a new array with size of colChildren + newComponents
+                Collider[] replacement = new Collider[colChildren.Length + newComponents.Length];
+
+                // Copy the old colliders into the new array
+                Array.Copy(colChildren, replacement, colChildren.Length);
+
+                // Copy the new colliders found in children to the new array
+                Array.Copy(newComponents, 0, replacement, colChildren.Length, newComponents.Length);
+
+                // Update colChildren with the new array
+                colChildren = replacement;
+            }
 
             ApplyState();
         }
@@ -106,6 +132,7 @@ namespace UEPlus
 
         void ApplyState()
         {
+            // apply state to game objects active state
             if (togObjs.Length > 0)
             {
                 foreach (GameObject o in togObjs)
@@ -115,13 +142,17 @@ namespace UEPlus
 
             }
 
-            if (togColliders.Length > 0)
+            // apply state to colliders enabled
+            if (colliderContainers.Length > 0)
             {
-                foreach (Collider c in togColliders)
+                foreach (Collider c in colChildren)
                 {
+
                     c.enabled = (state);
                 }
             }
+
+            //apply state to the optionals
 
             if (isAnimated && optionalAnim)
                 SetAnimatorState();
