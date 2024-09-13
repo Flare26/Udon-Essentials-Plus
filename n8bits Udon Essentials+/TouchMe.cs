@@ -7,8 +7,9 @@ using VRC.Udon;
 
 public class TouchMe : UdonSharpBehaviour
 {
-
-    [SerializeField] GameObject [] objs;
+    [Header("TouchMe Unlocker by n8bits")]
+    [Header("V1.0.0")]
+    [SerializeField] GameObject[] objs;
     [SerializeField] Collider[] colliders;
     [SerializeField] Button[] buttons;
     [SerializeField] bool[] objSetBool;
@@ -16,12 +17,30 @@ public class TouchMe : UdonSharpBehaviour
     [SerializeField] bool locked;
     [SerializeField] Canvas canvas1;
     [SerializeField] Canvas canvas2;
-    [SerializeField] Canvas [] canvases;
+    [SerializeField] Canvas[] canvases;
     [SerializeField] Collider thisCollider;
     void Start()
     {
         locked = true;
         gameObject.SetActive(false);
+
+        for (int i = 0; i < objs.Length; i++)
+        {
+            if (objs[i] != null)
+            {
+                objs[i].SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].interactable = false;
+        }
+
+        if (canvas1)
+            canvas1.enabled = false;
+        if (canvas2)
+            canvas1.enabled = false;
     }
 
     public void OnEnable()
