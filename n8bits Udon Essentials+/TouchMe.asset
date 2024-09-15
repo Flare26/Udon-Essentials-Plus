@@ -101,7 +101,7 @@ MonoBehaviour:
       Data: 6|UnityEngine.HeaderAttribute, UnityEngine.CoreModule
     - Name: header
       Entry: 1
-      Data: V1.0.0
+      Data: V1.0.1
     - Name: 
       Entry: 8
       Data: 
