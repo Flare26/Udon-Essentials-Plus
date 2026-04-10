@@ -21,10 +21,12 @@ namespace VRCLightVolumes
         public Texture TargetRenderTexture;
         [Tooltip("Enables smoothing algorithm that tries to smooth out flickering that is usually a problem. Recommended to always be turned on.")]
         public bool AntiFlickering = true;
+        [Tooltip("When enabled, the Brightness Minimum and Brightness Threshold values will be factored into the color calculations. When disabled, colors are passed through without brightness adjustments.")]
+        public bool BrightnessTuning;
         [Tooltip("Minimum brightness (value in HSV) applied to the sampled color. Pixels above the clip threshold will be boosted to at least this value, preventing the light from going fully dark during dim scenes.")]
-        public float minimumBrightness;
+        public float brightnessMinimum;
         [Tooltip("HSV value threshold below which the minimum brightness boost is not applied. Pixels darker than this are left untouched, allowing true blacks to remain black instead of being artificially lifted.")]
-        public float clipThreshold;
+        public float brighnessThreshold;
         [Space]
         [Tooltip("List of the Light Volumes that should be affected by the Light Volume TVGI script.")]
         public LightVolumeInstance[] TargetLightVolumes;
@@ -93,12 +95,15 @@ namespace VRCLightVolumes
 
             Color color = _pixels[0]; // Current color
 
-            float h, s, v;
-            Color.RGBToHSV(color, out h, out s, out v);
-            if (v > clipThreshold)
+            if (BrightnessTuning)
             {
-                v = Mathf.Max(v, minimumBrightness);    // set your floor here
-                color = Color.HSVToRGB(h, s, v);
+                float h, s, v;
+                Color.RGBToHSV(color, out h, out s, out v);
+                if (v > brighnessThreshold)
+                {
+                    v = Mathf.Max(v, brightnessMinimum);    // set your floor here
+                    color = Color.HSVToRGB(h, s, v);
+                }
             }
 
             if (AntiFlickering)
