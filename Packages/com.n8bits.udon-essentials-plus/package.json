@@ -1,0 +1,14 @@
+{
+  "name": "com.n8bits.udon-essentials-plus",
+  "displayName": "Udon Essentials Plus",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "Common world utility scripts: toggles, teleporters, trigger enablers/disablers, keypad handler, list manager, and more.",
+  "author": {
+    "name": "n8bits",
+    "url": "https://github.com/n8bits"
+  },
+  "vpmDependencies": {
+    "com.vrchat.worlds": ">=3.5.0"
+  }
+}

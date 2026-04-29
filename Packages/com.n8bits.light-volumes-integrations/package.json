@@ -1,0 +1,15 @@
+{
+  "name": "com.n8bits.light-volumes-integrations",
+  "displayName": "Light Volumes Integrations",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "UdonSharp integrations for Light Volumes with AudioLink and TVGI support.",
+  "author": {
+    "name": "n8bits",
+    "url": "https://github.com/n8bits"
+  },
+  "vpmDependencies": {
+    "com.vrchat.worlds": ">=3.5.0",
+    "com.llealloo.audiolink": ">=1.0.0"
+  }
+}

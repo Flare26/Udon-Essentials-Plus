@@ -1,0 +1,14 @@
+{
+  "name": "com.n8bits.summon-menu",
+  "displayName": "Summon Menu",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "On-demand summonable UI menu system with prefab, animations, and UdonSharp controller.",
+  "author": {
+    "name": "n8bits",
+    "url": "https://github.com/n8bits"
+  },
+  "vpmDependencies": {
+    "com.vrchat.worlds": ">=3.5.0"
+  }
+}
