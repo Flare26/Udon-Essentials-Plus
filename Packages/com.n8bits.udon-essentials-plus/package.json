@@ -1,7 +1,7 @@
 {
   "name": "com.n8bits.udon-essentials-plus",
   "displayName": "Udon Essentials Plus",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "unity": "2022.3",
   "description": "Everyday world-building utilities: networked object toggles, trigger-based enable/disable, teleporters, a keypad access handler, and a flexible list manager. Each script works independently — drop in what you need.",
   "author": {
