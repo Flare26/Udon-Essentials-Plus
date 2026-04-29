@@ -1,22 +1,25 @@
-﻿using UdonSharp;
-using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.UI;
-using VRC.SDKBase;
-using VRC.Udon;
-
-public class PostProcessSlider : UdonSharpBehaviour
+﻿namespace n8bits.UEPlus
 {
-    [SerializeField] PostProcessVolume volume;
-    [SerializeField] Slider bloomSlider;
+    using UdonSharp;
+    using UnityEngine;
+    using UnityEngine.Rendering.PostProcessing;
+    using UnityEngine.UI;
+    using VRC.SDKBase;
+    using VRC.Udon;
 
-    void Start()
+    public class PostProcessSlider : UdonSharpBehaviour
     {
-        bloomSlider.value = volume.weight;
-    }
+        [SerializeField] PostProcessVolume volume;
+        [SerializeField] Slider bloomSlider;
 
-    public void OnSliderChanged()
-    {
-        volume.weight = bloomSlider.value;
-    }
+        void Start()
+        {
+            bloomSlider.value = volume.weight;
+        }
+
+        public void OnSliderChanged()
+        {
+            volume.weight = bloomSlider.value;
+        }
+    } 
 }

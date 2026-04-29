@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: ObjectPositionReset
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 0cd7fb5f63ef92e4d921f0ce6109fa66,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: aad26ec0591b3644396ad0c5a585a003, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: ce49e96e3cb18d041bb4133357db8ae1, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 1
-  scriptID: 5111202816933238650
+  scriptID: 6716460109179340342
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

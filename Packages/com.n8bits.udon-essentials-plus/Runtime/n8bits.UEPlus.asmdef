@@ -1,0 +1,20 @@
+{
+  "name": "n8bits.UEPlus",
+  "rootNamespace": "n8bits.UEPlus",
+  "references": [
+    "VRC.SDKBase",
+    "VRC.Udon",
+    "UdonSharp.Runtime",
+    "Unity.Postprocessing.Runtime",
+    "VRC.Udon.Serialization.OdinSerializer"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

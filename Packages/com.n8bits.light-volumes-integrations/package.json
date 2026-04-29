@@ -3,11 +3,12 @@
   "displayName": "Light Volumes Integrations",
   "version": "1.0.0",
   "unity": "2022.3",
-  "description": "UdonSharp integrations for Light Volumes with AudioLink and TVGI support.",
+  "description": "Integration scripts connecting Point Light Volumes to AudioLink for reactive lighting and TVGI for GI-aware setups. Requires the Light Volumes and AudioLink packages to be installed.",
   "author": {
     "name": "n8bits",
     "url": "https://github.com/n8bits"
   },
+  "keywords": ["udonsharp", "lighting", "audiolink", "light volumes", "GI", "reactive"],
   "vpmDependencies": {
     "com.vrchat.worlds": ">=3.5.0",
     "com.llealloo.audiolink": ">=1.0.0"

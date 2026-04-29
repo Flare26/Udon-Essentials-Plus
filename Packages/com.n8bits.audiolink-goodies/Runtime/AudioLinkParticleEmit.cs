@@ -1,17 +1,16 @@
-﻿using UnityEngine;
-
-namespace AudioLink
+﻿namespace n8bits.AudioLinkGoodies
 {
+    using UnityEngine;
+    using AudioLink;
 #if UDONSHARP
     using UdonSharp;
-
     public class AudioLinkParticleEmit : UdonSharpBehaviour
 #else
     public class AudioLinkParticleEmit : MonoBehaviour
 #endif
     {
         public AudioLink audioLink;
-        public ParticleSystem particleSystem;
+        public ParticleSystem particlezSystem;
         public int emitCount;
         public int band;
         [Range(0, 127)]
@@ -47,9 +46,9 @@ namespace AudioLink
                 //Debug.Log("Amplitude = " + amplitude);
                 if (amplitude >= sensitivity)
                 {
-                    var velocityModule = particleSystem.velocityOverLifetime;
+                    var velocityModule = GetComponent<ParticleSystem>().velocityOverLifetime;
                     velocityModule.speedModifier = 1 + (speedToAudioFactor * amplitude);
-                    particleSystem.Emit(emitCount);
+                    GetComponent<ParticleSystem>().Emit(emitCount);
                 }
                 //transform.localPosition = _initialPosition + (position * amplitude);
                 //transform.localEulerAngles = _initialRotation + (rotation * amplitude);

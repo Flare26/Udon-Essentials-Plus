@@ -1,29 +1,32 @@
-﻿
-using UdonSharp;
-using UnityEngine;
-using VRC.SDKBase;
-using VRC.Udon;
-//n8bits
-public class TriggerEnterDisabler : UdonSharpBehaviour
+﻿namespace n8bits.UEPlus
 {
-    [Header("Trigger Enter Disabler by n8")]
-    [Header("v1.0.0")]
-    [SerializeField] GameObject[] toDisable;
-    void Start()
-    {
-        
-    }
 
-    public override void OnPlayerTriggerEnter(VRCPlayerApi player)
+    using UdonSharp;
+    using UnityEngine;
+    using VRC.SDKBase;
+    using VRC.Udon;
+    public class TriggerEnterDisabler : UdonSharpBehaviour
     {
-        if (Networking.LocalPlayer.Equals(player))
+        [Header("Trigger Enter Disabler by n8")]
+        [Header("v1.0.0")]
+        [SerializeField] GameObject[] toDisable;
+        void Start()
         {
-            foreach(GameObject o in toDisable)
-            {
-                o.SetActive(false);
-            }
 
         }
 
+        public override void OnPlayerTriggerEnter(VRCPlayerApi player)
+        {
+            if (Networking.LocalPlayer.Equals(player))
+            {
+                foreach (GameObject o in toDisable)
+                {
+                    o.SetActive(false);
+                }
+
+            }
+
+        }
     }
+
 }

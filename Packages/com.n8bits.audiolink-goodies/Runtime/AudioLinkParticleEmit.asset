@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: AudioLinkParticleEmit
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 568002df5201a7147a0b580b616cda3b,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: dcdd69856e5a8354cb5a61a187d7447a, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 9a07262a1f05bd84ba5162a1b1bc3251, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 0
-  scriptID: -9058581612831962216
+  scriptID: 1679364543748276151
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -110,13 +109,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: particleSystem
+      Data: particlezSystem
     - Name: $v
       Entry: 7
       Data: 6|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: particleSystem
+      Data: particlezSystem
     - Name: <UserType>k__BackingField
       Entry: 7
       Data: 7|System.RuntimeType, mscorlib

@@ -1,12 +1,12 @@
-﻿// Toggle Plus by N8bits
+﻿namespace n8bits.UEPlus
+{
+// Toggle Plus by N8bits
 using System;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.SDKBase;
 using VRC.Udon;
-namespace UEPlus
-{
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class TogglePlus : UdonSharpBehaviour
     {

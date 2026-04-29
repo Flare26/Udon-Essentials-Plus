@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: TogglePlus
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: c450ba6e569772b4399fb6da6e3f43ae,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 24c0c7cdf84b9954ba3a4c396b616643, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 7550c5fa812c38e4aa34d7b8182eca0d, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 4
   hasInteractEvent: 1
-  scriptID: 8135806628679436740
+  scriptID: 6835521652468857048
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

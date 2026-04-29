@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: TouchMe
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: df02407d71d1f0c4eb2f6ba22e3e2f5e,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 5415ec8a31e64e7428ca1315436a78c4, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 68a6606e59885d2489d36299d2eb591f, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 0
-  scriptID: 5007877065637194526
+  scriptID: -3402026140817665090
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

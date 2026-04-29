@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: TriggerEnterEnabler
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 3d3c0f135c6c6d0428b2e65d1f3433ec,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 634776eeec4f8df43b1658061e1ccf77, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 67ffbc199cea468488bac7d2904c9e29, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 1
   hasInteractEvent: 0
-  scriptID: -5178570601301139776
+  scriptID: 1971402863309308268
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

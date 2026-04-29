@@ -1,22 +1,24 @@
 ﻿using UdonSharp;
 using UnityEngine;
 using VRC.Udon;
-
-public class KeypadGrantedHandler : UdonSharpBehaviour
+namespace n8bits.UEPlus
 {
-    [Header("KeypadGrantedHandler By n8bits")]
-    [Header("Last Updated: 20250511")]
-    [HideInInspector] public string code;  // populated by SetProgramVariable
-    public string[] codes;
-    public UEPlus.TogglePlus [] toggles;
-
-    public void keypadGranted()
+    public class KeypadGrantedHandler : UdonSharpBehaviour
     {
-        for (int i=0;i<codes.Length;i++)
+        [Header("KeypadGrantedHandler By n8bits")]
+        [Header("Last Updated: 20250511")]
+        [HideInInspector] public string code;  // populated by SetProgramVariable
+        public string[] codes;
+        public UEPlus.TogglePlus[] toggles;
+
+        public void keypadGranted()
         {
-            if (code.Equals(codes[i]))
+            for (int i = 0; i < codes.Length; i++)
             {
-                toggles[i].Interact();
+                if (code.Equals(codes[i]))
+                {
+                    toggles[i].Interact();
+                }
             }
         }
     }

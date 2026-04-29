@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: ListManager
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: f7b47bc13d798014eb78f68434f53c84,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 771555231e5ea104485e2b62083f29a5, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: cec60e3b9043ba843aa9ecb6eba47b16, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 1
   hasInteractEvent: 0
-  scriptID: 1956452162524050183
+  scriptID: 1831154617158733263
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

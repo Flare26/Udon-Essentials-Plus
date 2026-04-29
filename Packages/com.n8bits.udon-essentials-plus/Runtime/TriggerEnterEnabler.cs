@@ -1,22 +1,22 @@
-﻿// Trigger enter enabler by N8bits
-using UdonSharp;
-using UnityEngine;
-using VRC.SDKBase;
-using VRC.Udon;
+﻿namespace n8bits.UEPlus
 
-namespace UEPlus
 {
-    [UdonBehaviourSyncMode(BehaviourSyncMode.None )]
+    // Trigger enter enabler by N8bits
+    using UdonSharp;
+    using UnityEngine;
+    using VRC.SDKBase;
+    using VRC.Udon;
+    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class TriggerEnterEnabler : UdonSharpBehaviour
     {
         [Header("Trigger Enter Enabler by n8")]
         [Header("v1.0.0")]
-        [SerializeField] GameObject[] enables; 
+        [SerializeField] GameObject[] enables;
         public override void OnPlayerTriggerEnter(VRCPlayerApi api)
         {
             if (Networking.LocalPlayer.Equals(api))
             {
-                foreach ( GameObject o in enables)
+                foreach (GameObject o in enables)
                 {
                     if (o.activeSelf == false)
                         o.SetActive(true);

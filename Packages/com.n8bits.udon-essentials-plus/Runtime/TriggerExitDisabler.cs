@@ -1,10 +1,10 @@
-﻿using UdonSharp;
-using UnityEngine;
-using VRC.SDKBase;
-using VRC.Udon;
-
-namespace UEPlus
+﻿namespace n8bits.UEPlus
 {
+    using UdonSharp;
+    using UnityEngine;
+    using VRC.SDKBase;
+    using VRC.Udon;
+
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class TriggerExitDisabler : UdonSharpBehaviour
     {
@@ -38,7 +38,7 @@ namespace UEPlus
                     foreach (UdonBehaviour o in behaviours)
                     {
                         Debug.Log($"Checking program var on {o.name}");
-                        bool state = (bool) o.GetProgramVariable("state");
+                        bool state = (bool)o.GetProgramVariable("state");
                         if (state)
                         {
                             Debug.Log($"State true. Sending custom event on {o.name}");

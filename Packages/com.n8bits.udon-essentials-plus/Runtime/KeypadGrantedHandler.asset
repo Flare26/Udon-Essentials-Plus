@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: KeypadGrantedHandler
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 1d784674e3c187841ac0aa8d7bdac34f,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 4cb776a29c3eec14a901c389b7b86ce1, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 91cc736504dd4374ab2c7c08b05f7dcc, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 0
-  scriptID: 7024680133580156502
+  scriptID: -2069131695179628602
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -194,7 +193,7 @@ MonoBehaviour:
       Data: 12|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: UEPlus.TogglePlus[], Assembly-CSharp
+      Data: n8bits.UEPlus.TogglePlus[], n8bits.UEPlus
     - Name: 
       Entry: 8
       Data: 

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: TeleportPlus
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: f7758310f3ca16347b452519f7df697d,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 386bcbd6037085b45b4c2bcb9c0f56e0, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 71d01d41da5eff048b64cffde13462ef, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 1
   hasInteractEvent: 1
-  scriptID: 631212067995205714
+  scriptID: 627023348236490514
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

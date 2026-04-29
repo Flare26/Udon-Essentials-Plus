@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: AudioLinkAnimatorPlayback
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 5def341bb1aac694f9d2dda30cd364ec,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 6093567b12e4301488bdea35be65c959, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 1593ccb410eb5214daa9091ec5302e24, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 0
-  scriptID: 6198303342981617062
+  scriptID: -1375789715071793967
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

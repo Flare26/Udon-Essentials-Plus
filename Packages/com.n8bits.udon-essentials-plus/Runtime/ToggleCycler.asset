@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: ToggleCycler
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: f61c0485acad43c4ba2bd686b9df048b,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: ddbd6a82c93fbd54d872d21868a9265a, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 2259cdad39ce21648835f065d6fa4c9b, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 4
   hasInteractEvent: 1
-  scriptID: -7640880948449829645
+  scriptID: -4975612813519494131
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

@@ -1,0 +1,20 @@
+{
+  "name": "n8bits.LightVolumes",
+  "rootNamespace": "n8bits.LightVolumes",
+  "references": [
+    "VRC.SDKBase",
+    "VRC.Udon",
+    "UdonSharp.Runtime",
+    "AudioLink",
+    "VRCLightVolumes"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

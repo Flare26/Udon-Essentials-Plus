@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: WalkInTeleporter
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: f6c061b69ea3d32409c262f0b6a5ecad,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 49b269f152a6b68419839caa16c79026, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 2986b9a545fd0c0439dc32714d68b0d5, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 0
-  scriptID: 5826296669941275772
+  scriptID: -354466824765313883
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

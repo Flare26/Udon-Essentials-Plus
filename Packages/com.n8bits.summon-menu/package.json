@@ -3,11 +3,12 @@
   "displayName": "Summon Menu",
   "version": "1.0.0",
   "unity": "2022.3",
-  "description": "On-demand summonable UI menu system with prefab, animations, and UdonSharp controller.",
+  "description": "An on-demand UI menu players can summon in-world. Includes a ready-to-use prefab, the UdonSharp controller, and a complete set of custom UI animations and component styles.",
   "author": {
     "name": "n8bits",
     "url": "https://github.com/n8bits"
   },
+  "keywords": ["udonsharp", "ui", "menu", "prefab", "world"],
   "vpmDependencies": {
     "com.vrchat.worlds": ">=3.5.0"
   }

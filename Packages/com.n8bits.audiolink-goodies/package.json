@@ -1,15 +1,16 @@
 {
   "name": "com.n8bits.audiolink-goodies",
   "displayName": "AudioLink Goodies",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "unity": "2022.3",
-  "description": "UdonSharp scripts for AudioLink-driven animator playback and particle emission.",
+  "description": "UdonSharp scripts that hook into AudioLink's audio data to drive animator parameters and trigger particle emission. Lets your world visuals react to music with minimal setup.",
   "author": {
     "name": "n8bits",
     "url": "https://github.com/n8bits"
   },
+  "keywords": ["udonsharp", "audiolink", "audio", "animation", "particles", "reactive"],
   "vpmDependencies": {
     "com.vrchat.worlds": ">=3.5.0",
-    "com.llealloo.audiolink": ">=1.0.0"
+    "com.llealloo.audiolink": ">=2.0.0"
   }
 }

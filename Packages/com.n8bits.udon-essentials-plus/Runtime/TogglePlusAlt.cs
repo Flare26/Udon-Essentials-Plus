@@ -1,92 +1,124 @@
-﻿
-using UdonSharp;
-using UnityEngine;
-using VRC.SDKBase;
-using VRC.Udon;
-
-public class TogglePlusAlt : UdonSharpBehaviour
+﻿namespace n8bits.UEPlus
 {
-    [Header("Toggle+ Alt by n8")]
+    // Toggle Plus Alt by N8bits
+    // DEPRECATED — Use TogglePlus with "Use Relative Toggle" enabled instead.
+    // This script is kept for backward compatibility with existing projects.
+    using System;
+    using UdonSharp;
+    using UnityEngine;
+    using UnityEngine.UI;
+    using VRC.SDKBase;
+    using VRC.Udon;
 
-    [SerializeField] bool isSynced;
-    [UdonSynced] bool [] objStates;
-    [UdonSynced] bool[] collStates;
-    [SerializeField] GameObject[] togObjs;
-    [SerializeField] Collider[] togColliders;
-    void Start()
+    [System.Obsolete("Use TogglePlus with useRelativeToggle enabled instead. This script is maintained for backward compatibility only.")]
+    [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
+    public class TogglePlusAlt : UdonSharpBehaviour
     {
-        objStates = new bool[togObjs.Length];
-        collStates = new bool[togColliders.Length];
+        [Header("Toggle+ Alt by n8 v2.0.0 [DEPRECATED]")]
+        [Header("Use TogglePlus with Relative Toggle instead")]
 
-    }
+        [SerializeField] bool isSynced;
+        [SerializeField, UdonSynced] public bool isFlipped;
+        [SerializeField] GameObject[] togObjs;
+        [SerializeField] Collider[] togColliders;
 
-    public override void Interact()
-    {
-        // On interact, check if this toggle is supposed to be global or not and set ownership if so.
-        // After setting ownership, request serializaiton if supposed to be synced
+        [Header("--Optional Animation--")]
+        [SerializeField,
+            Tooltip("If using an animator, it is recommended to put your toggle actions into the animations instead of using the object arrays.")]
+        bool isAnimated;
+        [SerializeField] Animator optionalAnim;
+        [SerializeField] string onStateName;
+        [SerializeField] string offStateName;
 
-        if (!Networking.IsOwner(Networking.LocalPlayer, gameObject) && isSynced)
-            Networking.SetOwner(Networking.LocalPlayer, gameObject);
-        
-        //Debug.Log("Changed state bool");
+        [Header("--Optional UI Button--")]
+        [SerializeField] bool useUiImage;
+        [SerializeField] Image buttonImg;
+        [SerializeField] Color onColor;
+        [SerializeField] Color offColor;
 
-        SetState();
-        Toggle();
+        // Initial states captured at Start so we can flip relative to them
+        bool[] initialObjStates;
+        bool[] initialCollStates;
 
-        if (isSynced)
-            RequestSerialization();
-    }
-
-    void SetState()
-    {
-        if (togObjs.Length > 0)
+        void Start()
         {
-            for (int i = 0; i < objStates.Length; i++)
+            // Snapshot whatever each object/collider starts as
+            if (togObjs != null)
             {
-                objStates[i] = !togObjs[i].activeSelf;
+                initialObjStates = new bool[togObjs.Length];
+                for (int i = 0; i < togObjs.Length; i++)
+                {
+                    if (togObjs[i])
+                        initialObjStates[i] = togObjs[i].activeSelf;
+                }
             }
+
+            if (togColliders != null)
+            {
+                initialCollStates = new bool[togColliders.Length];
+                for (int i = 0; i < togColliders.Length; i++)
+                {
+                    if (togColliders[i])
+                        initialCollStates[i] = togColliders[i].enabled;
+                }
+            }
+
+            ApplyState();
         }
 
-        if (togColliders.Length > 0)
+        public override void Interact()
         {
-            for (int i = 0; i < togColliders.Length; i++)
-            {
-                collStates[i] = !togColliders[i].enabled;
-            }
+            if (!Networking.IsOwner(Networking.LocalPlayer, gameObject) && isSynced)
+                Networking.SetOwner(Networking.LocalPlayer, gameObject);
+
+            isFlipped = !isFlipped;
+            ApplyState();
+
+            if (isSynced)
+                RequestSerialization();
         }
 
-        //Debug.Log("Set state to " + state);
-    }
-
-    void Toggle()
-    {
-        if (togObjs.Length > 0)
+        /// <summary>
+        /// Applies the current toggle state.
+        /// When isFlipped is false (default), objects keep their initial states.
+        /// When isFlipped is true, every object/collider is set to the inverse of its initial state.
+        /// </summary>
+        void ApplyState()
         {
-            for (int i = 0; i < objStates.Length; i++)
+            if (togObjs != null && initialObjStates != null)
             {
-                togObjs[i].SetActive(objStates[i]);
+                for (int i = 0; i < togObjs.Length; i++)
+                {
+                    if (!togObjs[i]) continue;
+                    togObjs[i].SetActive(isFlipped ? !initialObjStates[i] : initialObjStates[i]);
+                }
             }
+
+            if (togColliders != null && initialCollStates != null)
+            {
+                for (int i = 0; i < togColliders.Length; i++)
+                {
+                    if (!togColliders[i]) continue;
+                    togColliders[i].enabled = isFlipped ? !initialCollStates[i] : initialCollStates[i];
+                }
+            }
+
+            if (isAnimated && optionalAnim)
+                optionalAnim.Play(isFlipped ? onStateName : offStateName);
+
+            if (useUiImage && buttonImg)
+                buttonImg.color = isFlipped ? onColor : offColor;
         }
 
-        if (togColliders.Length > 0)
+        public override void OnDeserialization()
         {
-            for (int i = 0; i < togColliders.Length; i++)
-            {
-                togColliders[i].enabled = collStates[i];
-            }
+            if (Networking.GetOwner(gameObject) == Networking.LocalPlayer)
+                return;
+
+            if (!isSynced)
+                return;
+
+            ApplyState();
         }
-    }
-    public override void OnDeserialization()
-    {
-        // Make sure it doesnt double execute if its not supposed to be synced
-
-        if (Networking.GetOwner(gameObject) == Networking.LocalPlayer)
-            return;
-
-        if (isSynced == false)
-            return;
-
-        Toggle();
-        //Debug.Log("Set state from deserialize");
     }
 }

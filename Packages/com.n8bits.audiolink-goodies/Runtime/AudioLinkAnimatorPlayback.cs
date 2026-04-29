@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-
-namespace AudioLink
+﻿namespace n8bits.AudioLinkGoodies
 {
+    using UnityEngine;
+    using AudioLink;
 #if UDONSHARP
     using UdonSharp;
 

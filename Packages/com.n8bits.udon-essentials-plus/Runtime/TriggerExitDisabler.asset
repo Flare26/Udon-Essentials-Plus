@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: TriggerExitDisabler
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: f104010a980bc2047a43efa1db937815,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: ee82896339fdb244fa22a5a34a8d71ba, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: cfa8461564150b5418f1f70d93372c84, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 1
   hasInteractEvent: 0
-  scriptID: -330427732188578937
+  scriptID: -6824416923260003761
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

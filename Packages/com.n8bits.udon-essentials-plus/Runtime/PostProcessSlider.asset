@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: PostProcessSlider
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: a9cd91b5107512b46a3dd3ba856d7561,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 190a35fc9398f3e4d927f53d2d9c437d, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 599286d4403fba54b997eee7cd6b9bc9, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 0
-  scriptID: -3893185082946852895
+  scriptID: 3161515605011531799
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
