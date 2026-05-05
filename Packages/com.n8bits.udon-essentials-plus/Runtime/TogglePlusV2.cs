@@ -16,7 +16,10 @@ using VRC.Udon;
         [SerializeField, UdonSynced] public bool state;
         [SerializeField] GameObject[] togObjs;
         [SerializeField] GameObject[] colliderContainers;
+        [SerializeField] ReflectionProbe[] reflProbes;
+        [SerializeField] Camera[] cams;
         Collider[] colChildren;
+        bool initialized;
 
         [Header("--Toggle Mode--")]
         [SerializeField, Tooltip("When enabled, each object flips relative to its initial state instead of being set to a uniform on/off. Use this when your objects start in mixed states (some on, some off) and you want them all to invert on toggle.")]
@@ -48,6 +51,15 @@ using VRC.Udon;
         [SerializeField] Image buttonImg;
         [SerializeField] Color onColor;
         [SerializeField] Color offColor;
+
+        [Header("--Optional UdonBehaviour Events--")]
+        [SerializeField] bool useUdonEvents;
+        [SerializeField, Tooltip("The UdonBehaviour to send events to.")]
+        UdonBehaviour targetUdonBehaviour;
+        [SerializeField, Tooltip("Event sent to the target UdonBehaviour when toggled ON.")]
+        string onEventName;
+        [SerializeField, Tooltip("Event sent to the target UdonBehaviour when toggled OFF.")]
+        string offEventName;
 
         [Header("--Optional Button Interactable--")]
         [SerializeField] bool useButtonInteractable;
@@ -115,6 +127,12 @@ using VRC.Udon;
                 }
             }
 
+            initialized = true;
+            ApplyState();
+        }
+
+        void OnEnable()
+        {
             ApplyState();
         }
 
@@ -187,6 +205,9 @@ using VRC.Udon;
 
             // Optionals (shared by both modes)
 
+            ApplyReflectionProbeState();
+            ApplyCameraState();
+
             if (isAnimated && optionalAnim)
                 SetAnimatorState();
 
@@ -198,6 +219,9 @@ using VRC.Udon;
 
             if (useButtonInteractable && interactableButtons != null && interactableButtons.Length > 0)
                 SetButtonInteractable();
+
+            if (initialized && useUdonEvents && targetUdonBehaviour)
+                SendUdonEvent();
         }
 
         /// <summary>
@@ -319,6 +343,38 @@ using VRC.Udon;
                 if (!b) continue;
                 b.interactable = state;
             }
+        }
+
+        void ApplyReflectionProbeState()
+        {
+            if (reflProbes == null || reflProbes.Length == 0)
+                return;
+
+            foreach (ReflectionProbe p in reflProbes)
+            {
+                if (!p) continue;
+                p.gameObject.SetActive(state);
+            }
+        }
+
+        void ApplyCameraState()
+        {
+            if (cams == null || cams.Length == 0)
+                return;
+
+            foreach (Camera c in cams)
+            {
+                if (!c) continue;
+                c.enabled = state;
+            }
+        }
+
+        void SendUdonEvent()
+        {
+            string eventName = state ? onEventName : offEventName;
+
+            if (!string.IsNullOrEmpty(eventName))
+                targetUdonBehaviour.SendCustomEvent(eventName);
         }
 
         // ── Network Sync ──────────────────────────────────────────
