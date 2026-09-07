@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+#if !UDONSHARP && COMPILER_UDONSHARP
+#define UDONSHARP
+#endif
+
+using UnityEngine;
 
 #if UDONSHARP
 using VRC.SDKBase;
@@ -7,26 +11,23 @@ using VRC.SDK3.Rendering;
 using VRC.Udon.Common.Interfaces;
 #endif
 
-
-namespace VRCLightVolumes
-{
+namespace VRCLightVolumes {
 #if UDONSHARP
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class LightVolumeTVGICustom : UdonSharpBehaviour
 #else
-    public class LightVolumeTVGI : MonoBehaviour
+    public class LightVolumeTVGICustom : MonoBehaviour
 #endif
     {
         [Tooltip("Render Texture used by your video player. Can be just a static texture if you want it to be. Make sure that Enable Mip Maps and Auto Generate Mip Maps are Enabled in the texture's import settings.")]
         public Texture TargetRenderTexture;
-        [Tooltip("Enables smoothing algorithm that tries to smooth out flickering that is usually a problem. Recommended to always be turned on.")]
+        [Tooltip("Enables a smoothing algorithm that tries to smooth out flickering that is usually a problem. Recommended to always be turned on.")]
         public bool AntiFlickering = true;
-        [Tooltip("When enabled, the Brightness Minimum and Brightness Threshold values will be factored into the color calculations. When disabled, colors are passed through without brightness adjustments.")]
+        [Tooltip("Clamp the sampled color's brightness to a minimum so dark scenes don't fade the light to black. Off by default.")]
         public bool BrightnessTuning;
-        [Tooltip("Minimum brightness (value in HSV) applied to the sampled color. Pixels above the clip threshold will be boosted to at least this value, preventing the light from going fully dark during dim scenes.")]
-        public float brightnessMinimum;
-        [Tooltip("HSV value threshold below which the minimum brightness boost is not applied. Pixels darker than this are left untouched, allowing true blacks to remain black instead of being artificially lifted.")]
-        public float brighnessThreshold;
+        [Tooltip("Brightness clamp range. Left value is the near-black cutoff. Right handle is the minimum brightness. Frames whose brightness falls inside this range are boosted to the right-side value.")]
+        [MinMaxSlider(0f, 1f)]
+        public Vector2 brightnessRange = new Vector2(0.003f, 0.3f);
         [Space]
         [Tooltip("List of the Light Volumes that should be affected by the Light Volume TVGI script.")]
         public LightVolumeInstance[] TargetLightVolumes;
@@ -35,110 +36,131 @@ namespace VRCLightVolumes
 
 #if UDONSHARP
         private Color32[] _pixels;
-#else
-        private Unity.Collections.NativeArray<Color32> _pixels;
 #endif
         private Color _prevColor;
         private float _timePrev;
         private RenderTexture _downsampledTex;
-        private bool _pending;
+        private bool _readbackPending;
 
-#if UDONSHARP
-
-        private void Start()
-        {
+        // Creates the mipmapped reduction texture used to estimate the video's average color.
+        private void Start() {
             _timePrev = Time.time;
             _prevColor = Color.black;
+            CreateDownsampledTexture();
+#if UDONSHARP
             _pixels = new Color32[1];
+#endif
+        }
+
+        // Creates and validates the owned reduction target. Assign ownership before configuration so every successfully constructed Unity object remains reachable by lifecycle cleanup.
+        private void CreateDownsampledTexture() {
+            if (_downsampledTex != null) return;
             _downsampledTex = new RenderTexture(64, 32, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
             _downsampledTex.useMipMap = true;
             _downsampledTex.autoGenerateMips = true;
-            _downsampledTex.Create();
+            if (!_downsampledTex.Create()) ReleaseDownsampledTexture();
         }
 
-        void Update()
-        {
-            if (_pending) return;
+        // Releases the runtime reduction texture when this component is destroyed.
+        private void OnDestroy() {
+            _readbackPending = false;
+            ReleaseDownsampledTexture();
+        }
+
+        // Releases the owned reduction target in both ordinary Unity and UdonSharp builds.
+        private void ReleaseDownsampledTexture() {
+            RenderTexture texture = _downsampledTex;
+            _downsampledTex = null;
+            if (texture == null) return;
+#if COMPILER_UDONSHARP
+            Destroy(texture);
+#else
+            if (RenderTexture.active == texture) RenderTexture.active = null;
+            texture.Release();
+            if (Application.isPlaying) Destroy(texture);
+            else DestroyImmediate(texture);
+#endif
+        }
+
+#if UDONSHARP
+        // Blits the current video frame and requests its smallest mip through the VRChat readback API.
+        void Update() {
+            if (_readbackPending || TargetRenderTexture == null || _downsampledTex == null) return;
             VRCGraphics.Blit(TargetRenderTexture, _downsampledTex);
+            _readbackPending = true;
             VRCAsyncGPUReadback.Request(_downsampledTex, _downsampledTex.mipmapCount - 1, (IUdonEventReceiver)this);
-            _pending = true;
         }
 
-        public override void OnAsyncGpuReadbackComplete(VRCAsyncGPUReadbackRequest request)
-        {
-            _pending = false;
-            if (request.TryGetData(_pixels))
-            {
-                SetColor();
+        // Receives the reduced video color from the VRChat GPU readback request.
+        public override void OnAsyncGpuReadbackComplete(VRCAsyncGPUReadbackRequest request) {
+            _readbackPending = false;
+            if (_downsampledTex == null) return;
+            if (request.TryGetData(_pixels)) {
+                SetColor(_pixels[0]);
             }
         }
 
 #else
+        // Blits the current video frame and requests its smallest mip through Unity's readback API.
         void Update() {
+            if (_readbackPending || TargetRenderTexture == null || _downsampledTex == null) return;
             Graphics.Blit(TargetRenderTexture, _downsampledTex);
-            UnityEngine.Rendering.AsyncGPUReadback.Request(_downsampledTex, _downsampledTex.mipmapCount - 1, OnAsyncGpuReadbackComplete);
+            _readbackPending = true;
+            UnityEngine.Rendering.AsyncGPUReadback.Request(_downsampledTex, _downsampledTex.mipmapCount - 1, OnUnityAsyncGpuReadbackComplete);
         }
 
-        public void OnAsyncGpuReadbackComplete(UnityEngine.Rendering.AsyncGPUReadbackRequest request) {
-            var _pixels = request.GetData<Color32>();
-            SetColor();
-            _pixels.Dispose();
+        // Receives the reduced video color from Unity's GPU readback request.
+        private void OnUnityAsyncGpuReadbackComplete(UnityEngine.Rendering.AsyncGPUReadbackRequest request) {
+            _readbackPending = false;
+            if (_downsampledTex == null || request.hasError) return;
+            Unity.Collections.NativeArray<Color32> pixels = request.GetData<Color32>();
+            if (pixels.Length > 0) SetColor(pixels[0]);
         }
 #endif
 
-        private void SetColor()
-        {
+        // Smooths and applies the sampled video color to all configured light targets.
+        private void SetColor(Color color) {
 
-            // Custom delta time for the async stuff 
+            // Custom delta time for the async stuff
             float dTime = Time.time - _timePrev;
             _timePrev = Time.time;
 
-            Color color = _pixels[0]; // Current color
-
-            if (BrightnessTuning)
-            {
+            // Raise the sampled color to the range's top when it's dim but not near-black.
+            // Bright and near-black frames are left alone.
+            if (BrightnessTuning) {
                 float h, s, v;
                 Color.RGBToHSV(color, out h, out s, out v);
-                if (v > brighnessThreshold)
-                {
-                    v = Mathf.Max(v, brightnessMinimum);    // set your floor here
-                    color = Color.HSVToRGB(h, s, v);
+                if (v > brightnessRange.x && v < brightnessRange.y) {
+                    color = Color.HSVToRGB(h, s, brightnessRange.y);
                 }
             }
 
-            if (AntiFlickering)
-            {
-                float diff = ColorDifference(color, _prevColor); // Difference between prev and current color
+            if (AntiFlickering) {
+                float rmean = (color.r + _prevColor.r) * 0.5f;
+                float r = color.r - _prevColor.r;
+                float g = color.g - _prevColor.g;
+                float b = color.b - _prevColor.b;
+                float diff = Mathf.Sqrt((2f + rmean) * r * r + 4f * g * g + (3f - rmean) * b * b) / 3;
                 float smoothing = dTime / Mathf.Lerp(0.25f, 1e-05f, Mathf.Pow(diff * 1.5f, 0.1f)); // Smoothing speed depends on the color difference
-                _prevColor = Color.Lerp(_prevColor, color, smoothing); // Actually smoothing colors
-            }
-            else
-            {
+                _prevColor = Color.Lerp(_prevColor, color, smoothing); // Actually smooths colors
+            } else {
                 _prevColor = color;
             }
 
             // Applying all colors
-            for (int i = 0; i < TargetLightVolumes.Length; i++)
-            {
-                TargetLightVolumes[i].Color = _prevColor;
+            Color targetColor = _prevColor;
+            LightVolumeInstance[] targetLightVolumes = TargetLightVolumes;
+            int lightVolumeCount = targetLightVolumes.Length;
+            for (int i = 0; i < lightVolumeCount; i++) {
+                targetLightVolumes[i].SetColor(targetColor);
             }
 
-            for (int i = 0; i < TargetPointLightVolumes.Length; i++)
-            {
-                TargetPointLightVolumes[i].Color = _prevColor;
-                TargetPointLightVolumes[i].IsRangeDirty = true;
+            PointLightVolumeInstance[] targetPointLightVolumes = TargetPointLightVolumes;
+            int pointLightVolumeCount = targetPointLightVolumes.Length;
+            for (int i = 0; i < pointLightVolumeCount; i++) {
+                targetPointLightVolumes[i].SetColor(targetColor);
             }
 
         }
-
-        private float ColorDifference(Color colorA, Color colorB)
-        {
-            float rmean = (colorA.r + colorB.r) * 0.5f;
-            float r = colorA.r - colorB.r;
-            float g = colorA.g - colorB.g;
-            float b = colorA.b - colorB.b;
-            return Mathf.Sqrt((2f + rmean) * r * r + 4f * g * g + (3f - rmean) * b * b) / 3;
-        }
-
     }
 }
