@@ -1,0 +1,15 @@
+{
+  "name": "com.flipbits.live-poster",
+  "displayName": "Live Poster",
+  "version": "0.1.0",
+  "unity": "2022.3",
+  "description": "Live image posters for VRChat worlds - fetch and display remote images on in-world surfaces at runtime. Work in progress.",
+  "author": {
+    "name": "flipbits",
+    "url": "https://github.com/flipbits"
+  },
+  "keywords": ["udonsharp", "poster", "image", "world"],
+  "vpmDependencies": {
+    "com.vrchat.worlds": ">=3.5.0"
+  }
+}
