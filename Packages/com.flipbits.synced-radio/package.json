@@ -1,0 +1,15 @@
+{
+  "name": "com.flipbits.synced-radio",
+  "displayName": "Synced Radio",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "A drop-in networked radio for VRChat worlds. Give it a list of AudioClips and an AudioSource and it plays them in sync for everyone using server time, with shuffle, loop, late-join healing, a local mute toggle, and public hooks for building your own UI.",
+  "author": {
+    "name": "flipbits",
+    "url": "https://github.com/flipbits"
+  },
+  "keywords": ["udonsharp", "audio", "music", "radio", "synced", "world"],
+  "vpmDependencies": {
+    "com.vrchat.worlds": ">=3.5.0"
+  }
+}
