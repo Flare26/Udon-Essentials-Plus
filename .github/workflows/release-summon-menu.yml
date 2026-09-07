@@ -9,8 +9,8 @@ jobs:
     permissions:
       contents: write
     env:
-      packageName: com.n8bits.summon-menu
-      packagePath: Packages/com.n8bits.summon-menu
+      packageName: com.flipbits.summon-menu
+      packagePath: Packages/com.flipbits.summon-menu
     steps:
 
       - name: Checkout

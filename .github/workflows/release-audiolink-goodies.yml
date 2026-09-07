@@ -9,8 +9,8 @@ jobs:
     permissions:
       contents: write
     env:
-      packageName: com.n8bits.audiolink-goodies
-      packagePath: Packages/com.n8bits.audiolink-goodies
+      packageName: com.flipbits.audiolink-goodies
+      packagePath: Packages/com.flipbits.audiolink-goodies
     steps:
 
       - name: Checkout

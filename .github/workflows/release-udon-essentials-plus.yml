@@ -9,8 +9,8 @@ jobs:
     permissions:
       contents: write
     env:
-      packageName: com.n8bits.udon-essentials-plus
-      packagePath: Packages/com.n8bits.udon-essentials-plus
+      packageName: com.flipbits.udon-essentials-plus
+      packagePath: Packages/com.flipbits.udon-essentials-plus
     steps:
 
       - name: Checkout

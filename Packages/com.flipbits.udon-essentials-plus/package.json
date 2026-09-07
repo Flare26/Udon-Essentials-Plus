@@ -1,0 +1,15 @@
+{
+  "name": "com.flipbits.udon-essentials-plus",
+  "displayName": "Udon Essentials Plus",
+  "version": "1.0.5",
+  "unity": "2022.3",
+  "description": "Everyday world-building utilities: networked object toggles, trigger-based enable/disable, teleporters, a keypad access handler, and a flexible list manager. Each script works independently — drop in what you need.",
+  "author": {
+    "name": "flipbits",
+    "url": "https://github.com/flipbits"
+  },
+  "keywords": ["udonsharp", "utilities", "toggle", "teleport", "trigger", "world"],
+  "vpmDependencies": {
+    "com.vrchat.worlds": ">=3.5.0"
+  }
+}

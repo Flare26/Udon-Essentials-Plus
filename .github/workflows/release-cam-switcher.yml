@@ -9,8 +9,8 @@ jobs:
     permissions:
       contents: write
     env:
-      packageName: com.n8bits.cam-switcher
-      packagePath: Packages/com.n8bits.cam-switcher
+      packageName: com.flipbits.cam-switcher
+      packagePath: Packages/com.flipbits.cam-switcher
     steps:
 
       - name: Checkout

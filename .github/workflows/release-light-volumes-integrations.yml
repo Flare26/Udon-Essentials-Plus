@@ -9,8 +9,8 @@ jobs:
     permissions:
       contents: write
     env:
-      packageName: com.n8bits.light-volumes-integrations
-      packagePath: Packages/com.n8bits.light-volumes-integrations
+      packageName: com.flipbits.light-volumes-integrations
+      packagePath: Packages/com.flipbits.light-volumes-integrations
     steps:
 
       - name: Checkout
