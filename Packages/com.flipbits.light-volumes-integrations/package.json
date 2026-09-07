@@ -1,7 +1,7 @@
 {
   "name": "com.flipbits.light-volumes-integrations",
   "displayName": "Light Volumes Integrations",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "unity": "2022.3",
   "description": "Integration scripts connecting Point Light Volumes to AudioLink for reactive lighting and TVGI for GI-aware setups. Requires the Light Volumes and AudioLink packages to be installed.",
   "author": {
@@ -11,6 +11,7 @@
   "keywords": ["udonsharp", "lighting", "audiolink", "light volumes", "GI", "reactive"],
   "vpmDependencies": {
     "com.vrchat.worlds": ">=3.5.0",
-    "com.llealloo.audiolink": ">=1.0.0"
+    "com.llealloo.audiolink": ">=1.0.0",
+    "red.sim.lightvolumes": ">=3.0.0-dev.16"
   }
 }
