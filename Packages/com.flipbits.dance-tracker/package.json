@@ -1,7 +1,7 @@
 {
   "name": "com.flipbits.dance-tracker",
   "displayName": "Dance Tracker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "unity": "2022.3",
   "description": "Dance counters over every player's head. Staff can see them, managers click to bump them, counts save between visits and reset when stale. Hooks into whatever whitelist you already use, or a hidden button.",
   "author": {

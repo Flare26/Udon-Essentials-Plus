@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: IndividualTracker
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 8f08e797705e1064d9b8f5fd2de38d9a,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 0}
   udonAssembly: 
   assemblyError: 
-  sourceCsScript: {fileID: 11500000, guid: 509893306b94b3948a71dbf0dd596987, type: 3}
+  sourceCsScript: {fileID: 11500000, guid: 82b74cea0cccc3b49a51ddb0bd0ae255, type: 3}
   scriptVersion: 2
   compiledVersion: 2
   behaviourSyncMode: 4
   hasInteractEvent: 1
-  scriptID: 1445748819315064714
+  scriptID: -5237344324248680712
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -101,9 +100,8 @@ MonoBehaviour:
       Data: 6|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: Name of the scene GameObject that holds the DanceTrackerManager component.
-        PlayerObject prefabs cannot hold scene references directly, so the lookup
-        is done by name in Start().
+      Data: Name of the GameObject with the DanceTrackerManager. PlayerObjects can't
+        hold scene refs, so it's found by name.
     - Name: 
       Entry: 8
       Data: 
@@ -181,7 +179,7 @@ MonoBehaviour:
       Data: 12|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: Vertical offset above the player's head, in meters.
+      Data: Metres above the player's head.
     - Name: 
       Entry: 8
       Data: 
@@ -370,7 +368,7 @@ MonoBehaviour:
       Data: 25|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: If true, the tracker rotates to face the local player's camera each frame.
+      Data: Face the local player each frame.
     - Name: 
       Entry: 8
       Data: 
@@ -448,8 +446,7 @@ MonoBehaviour:
       Data: 31|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: The Collider that receives Interact events. Leave null to auto-find via
-        GetComponent on the root.
+      Data: Collider for Interact. Leave empty to grab the one on the root.
     - Name: 
       Entry: 8
       Data: 

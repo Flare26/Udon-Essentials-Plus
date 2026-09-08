@@ -1,0 +1,25 @@
+{
+  "name": "FlipBits.AccessControl.VRCLinking.Editor",
+  "rootNamespace": "FlipBits.AccessControl.VRCLinking.Editors",
+  "references": [
+    "FlipBits.AccessControl",
+    "FlipBits.AccessControl.Editor",
+    "FlipBits.AccessControl.VRCLinking",
+    "VRCLinking.Runtime",
+    "VRC.SDKBase",
+    "VRC.Udon",
+    "UdonSharp.Runtime",
+    "UdonSharp.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

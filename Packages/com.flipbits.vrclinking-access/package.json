@@ -1,0 +1,17 @@
+{
+  "name": "com.flipbits.vrclinking-access",
+  "displayName": "VRCLinking Access",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "VRCLinking identity provider for Access Control: fires AccessGate entries when the local player holds a whitelisted Discord role.",
+  "author": {
+    "name": "flipbits",
+    "url": "https://github.com/flipbits"
+  },
+  "keywords": ["udonsharp", "vrclinking", "discord", "whitelist", "access", "staff", "world"],
+  "vpmDependencies": {
+    "com.vrchat.worlds": ">=3.7.4",
+    "com.flipbits.access-control": ">=1.0.0",
+    "com.vrclinking.vrclinking-sdk": ">=0.1.11"
+  }
+}

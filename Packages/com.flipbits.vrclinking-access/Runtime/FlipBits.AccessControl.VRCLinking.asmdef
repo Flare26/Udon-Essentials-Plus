@@ -1,0 +1,21 @@
+{
+  "name": "FlipBits.AccessControl.VRCLinking",
+  "rootNamespace": "FlipBits.AccessControl.VRCLinking",
+  "references": [
+    "FlipBits.AccessControl",
+    "VRCLinking.Runtime",
+    "VRC.SDKBase",
+    "VRC.SDK3",
+    "VRC.Udon",
+    "UdonSharp.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

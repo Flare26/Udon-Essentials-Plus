@@ -1,0 +1,15 @@
+{
+  "name": "com.flipbits.access-control",
+  "displayName": "Access Control",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "Gate, keypad and object unlocker for staff-only areas. An AccessGate holds a table of targets; keypads, VRCLinking (separate package) or any hidden interact fire its entries. No dependency on any identity service.",
+  "author": {
+    "name": "flipbits",
+    "url": "https://github.com/flipbits"
+  },
+  "keywords": ["udonsharp", "access", "keypad", "unlock", "staff", "security", "whitelist", "world"],
+  "vpmDependencies": {
+    "com.vrchat.worlds": ">=3.7.4"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "FlipBits.AccessControl.Editor",
+  "rootNamespace": "FlipBits.AccessControl.Editors",
+  "references": [
+    "FlipBits.AccessControl",
+    "VRC.SDKBase",
+    "VRC.SDK3",
+    "VRC.Udon",
+    "UdonSharp.Runtime",
+    "UdonSharp.Editor",
+    "Unity.TextMeshPro",
+    "UnityEngine.UI"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

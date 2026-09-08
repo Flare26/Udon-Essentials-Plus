@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: DanceTrackerManager
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 3c5c5f9192c9d844687374b6edad2b8f,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 0}
   udonAssembly: 
   assemblyError: 
-  sourceCsScript: {fileID: 11500000, guid: 17f83ae7cd4901a4f86378cd53515c70, type: 3}
+  sourceCsScript: {fileID: 11500000, guid: 0dd347f5cc6bc9c499b1267e39c956cb, type: 3}
   scriptVersion: 2
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 0
-  scriptID: -6194498137993550144
+  scriptID: -8525628687353435008
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -101,8 +100,7 @@ MonoBehaviour:
       Data: 6|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: Lowest count value. Counts up to medianBound use the low->median color
-        ramp.
+      Data: Lowest count. Counts up to medianBound use the low->median colour ramp.
     - Name: 
       Entry: 8
       Data: 
@@ -159,7 +157,7 @@ MonoBehaviour:
       Data: 9|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: Inflection point between the low->median and median->high color ramps.
+      Data: Where the colour ramp switches from low->median to median->high.
     - Name: 
       Entry: 8
       Data: 
@@ -216,8 +214,8 @@ MonoBehaviour:
       Data: 12|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: Highest 'normal' count. Counts then advance to F, then N/D, before wrapping
-        back to lowBound on the next click.
+      Data: Highest normal count. After this comes F (if enabled), then N/D, then
+        wraps to lowBound.
     - Name: 
       Entry: 8
       Data: 
@@ -487,7 +485,7 @@ MonoBehaviour:
       Data: 26|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: If enabled, adds an F state between the highest normal count and N/D.
+      Data: Adds an F state between the top count and N/D.
     - Name: 
       Entry: 8
       Data: 
@@ -544,7 +542,7 @@ MonoBehaviour:
       Data: 29|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: Color used for the F floater state when enabled.
+      Data: Colour for the F state.
     - Name: 
       Entry: 8
       Data: 
@@ -616,9 +614,8 @@ MonoBehaviour:
       Data: 34|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: "If a player has not had their dance count updated in this many hours,
-        their saved count is reset to 0 the next time they join. Default 24 \u2014
-        old values won't carry over to next week's event. Set to 0 to disable auto-reset."
+      Data: If a player's count hasn't changed in this many hours it resets to 0
+        next time they join. 0 disables.
     - Name: 
       Entry: 8
       Data: 
@@ -684,8 +681,8 @@ MonoBehaviour:
       Data: 38|UnityEngine.TooltipAttribute, UnityEngine.CoreModule
     - Name: tooltip
       Entry: 1
-      Data: Inspector default for self-tracker visibility. At runtime, use ToggleSelfView()
-        / SetSelfView() instead. Enabling at runtime requires staff or manager permission.
+      Data: Show your own tracker to yourself. For solo testing only, turn it off
+        before publishing.
     - Name: 
       Entry: 8
       Data: 
