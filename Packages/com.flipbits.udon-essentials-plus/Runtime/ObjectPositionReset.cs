@@ -32,6 +32,12 @@
 
         public override void Interact()
         {
+            ResetAll();
+        }
+
+        public void ResetAll()
+        {
+            if (OGpos == null) return;
             for (int i = 0; i < toBeReset.Length; i++)
             {
                 //Debug.Log("resetting " + toBeReset[i].name);
