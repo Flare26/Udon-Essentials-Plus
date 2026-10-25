@@ -53,7 +53,8 @@ using VRC.Udon;
             for (int i = 0; i < colliderContainers.Length; i++)
             {
                 // Get all colliders in the children of the current togCollider (including itself)
-                Collider[] newComponents = colliderContainers[i].GetComponentsInChildren<Collider>();
+                // (true) so colliders under containers that start inactive are still toggled
+                Collider[] newComponents = colliderContainers[i].GetComponentsInChildren<Collider>(true);
 
                 // Create a new array with size of colChildren + newComponents
                 Collider[] replacement = new Collider[colChildren.Length + newComponents.Length];

@@ -19,7 +19,6 @@
             OGpos = new Vector3[toBeReset.Length];
             rbs = new Rigidbody[toBeReset.Length];
             OGrot = new Quaternion[toBeReset.Length];
-            bool t;
             for (int i = 0; i < toBeReset.Length; i++)
             {
                 OGpos[i] = toBeReset[i].transform.position;
@@ -46,7 +45,10 @@
                 toBeReset[i].transform.position = OGpos[i];
 
                 if (rbs[i])
+                {
                     rbs[i].velocity = Vector3.zero;
+                    rbs[i].angularVelocity = Vector3.zero;
+                }
 
                 toBeReset[i].transform.rotation = OGrot[i];
             }

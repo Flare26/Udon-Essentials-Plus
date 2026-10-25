@@ -16,6 +16,7 @@ namespace flipbits.SummonMenu
         [SerializeField] float activateTime;
         //[SerializeField] float deactivateTime;
         float timerActivate;
+        bool stickLatched; // one toggle per hold: keeps a long hold from toggling the menu back
         //[SerializeField] float timerDeactivate;
         [SerializeField] Vector3 menuWristScale; // Smaller scale when attached to wrist
         [SerializeField] Vector3 menuDesktopScale;
@@ -112,10 +113,22 @@ namespace flipbits.SummonMenu
         {
             if (isVr)
             {
+                bool leftStickClick = Input.GetButton("Oculus_CrossPlatform_PrimaryThumbstick");
+
+                if (!leftStickClick)
+                {
+                    // Reset the activation timer when the stick is not being clicked
+                    timerActivate = activateTime;
+                    stickLatched = false;
+
+                    // Idle with the menu parked: nothing to follow, skip the tracking query
+                    if (!isMenuActive)
+                        return;
+                }
+
                 VRCPlayerApi.TrackingData handData = Networking.LocalPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.LeftHand);
                 Vector3 handPos = handData.position;
                 Quaternion handRot = handData.rotation;
-                bool leftStickClick = Input.GetButton("Oculus_CrossPlatform_PrimaryThumbstick");
 
                 if (isMenuActive)
                 {
@@ -132,11 +145,12 @@ namespace flipbits.SummonMenu
                 }
 
                 // Handle menu activation/deactivation logic
-                if (leftStickClick)
+                if (leftStickClick && !stickLatched)
                 {
                     timerActivate -= Time.deltaTime;
                     if (timerActivate <= 0)
                     {
+                        stickLatched = true;
                         if (!isMenuActive)
                         {
                             // Activate the menu and attach it to the wrist
@@ -149,11 +163,6 @@ namespace flipbits.SummonMenu
                         }
                         timerActivate = activateTime;  // Reset the timer
                     }
-                }
-                else
-                {
-                    // Reset the activation timer when the stick is not being clicked
-                    timerActivate = activateTime;
                 }
             }
             else

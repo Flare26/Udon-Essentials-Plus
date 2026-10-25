@@ -13,9 +13,10 @@
         [SerializeField] GameObject[] cycleObjs;
         [SerializeField] int startIdx;
         [UdonSynced] int cIdx; // internal curent idx
+        bool gotSync; // a synced index arrived before Start, so it wins over startIdx
         void Start()
         {
-            if (startIdx != cIdx)
+            if (gotSync)
                 CycleTo(cIdx);
             else
                 CycleTo(startIdx);
@@ -24,6 +25,9 @@
 
         public override void Interact()
         {
+            if (cycleObjs.Length == 0)
+                return;
+
             if (isGlobal)
                 Networking.SetOwner(Networking.LocalPlayer, gameObject);
 
@@ -62,6 +66,7 @@
         {
             // on sync var changed then cycle to the value
 
+            gotSync = true;
             CycleTo(cIdx);
         }
     }

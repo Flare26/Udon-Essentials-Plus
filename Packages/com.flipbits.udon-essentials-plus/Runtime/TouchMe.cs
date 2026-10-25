@@ -10,7 +10,7 @@
     public class TouchMe : UdonSharpBehaviour
     {
         [Header("TouchMe Unlocker by flipbits")]
-        [Header("V1.0.1")]
+        [Header("V1.0.2")]
         [SerializeField] GameObject[] objs;
         [SerializeField] Collider[] colliders;
         [SerializeField] Button[] buttons;
@@ -42,7 +42,7 @@
             if (canvas1)
                 canvas1.enabled = false;
             if (canvas2)
-                canvas1.enabled = false;
+                canvas2.enabled = false;
         }
 
         public void OnEnable()
@@ -82,7 +82,7 @@
             if (canvas1)
                 canvas1.enabled = true;
             if (canvas2)
-                canvas1.enabled = true;
+                canvas2.enabled = true;
         }
         public override void OnPlayerTriggerEnter(VRCPlayerApi api)
         {
