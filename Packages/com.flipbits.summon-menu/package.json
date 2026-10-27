@@ -1,16 +1,16 @@
 {
   "name": "com.flipbits.summon-menu",
   "displayName": "Summon Menu",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "unity": "2022.3",
-  "description": "An on-demand UI menu players can summon in-world. Includes a ready-to-use prefab, the UdonSharp controller, and a complete set of custom UI animations and component styles.",
+  "description": "An on-demand UI menu players can summon in-world. Includes a ready-to-use prefab, the UdonSharp controller, a complete set of custom UI animations and component styles, and a Menu Settings Saver that keeps each player's toggle choices between visits (VRChat PlayerData).",
   "author": {
     "name": "flipbits",
     "url": "https://github.com/flipbits"
   },
-  "keywords": ["udonsharp", "ui", "menu", "prefab", "world"],
+  "keywords": ["udonsharp", "ui", "menu", "prefab", "world", "settings", "persistence"],
   "vpmDependencies": {
-    "com.vrchat.worlds": ">=3.5.0",
+    "com.vrchat.worlds": ">=3.7.0",
     "com.flipbits.udon-essentials-plus": ">=1.0.4"
   }
 }
